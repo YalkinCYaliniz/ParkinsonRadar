@@ -50,3 +50,6 @@ Kullanıcılar sisteme konuşma seslerini yükler; sistem, bu sesleri analiz ede
 - **Screenshot**
 - **Sprint Review** : Alınan kararlar: Hangi veri setinin kullanılacağı belirlendi. 
 - **Sprint Retrospective** : Diğer 2 sprintte daha verimli çalışılacağına ve daha düzenli toplantılar yapılması kararlaştırıldı.
+![Agile Board](https://github.com/user-attachments/assets/73c6ab46-4aa8-4ac2-b1d0-292cc4cb4d86)
+
+  
