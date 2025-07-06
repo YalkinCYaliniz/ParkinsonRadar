@@ -40,7 +40,7 @@ Kullanıcılar sisteme konuşma seslerini yükler; sistem, bu sesleri analiz ede
 - Klinik araştırmacılar
 
 ## Product Backlog  
-https://miro.com/app/board/uXjVIgjwiGI=/?share_link_id=736731013650
+[Miro Backlog Board](https://miro.com/app/board/uXjVIgjwiGI=/?share_link_id=736731013650)
 ## SPRINT 1
 - **Sprint Notları**
 - **Tahmin Edilen/Tamamlanacak Puan:** 100/100 Sprint 1'de 100 puanlık backlog tamamlanmıştır.
