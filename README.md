@@ -40,16 +40,17 @@ Kullanıcılar sisteme konuşma seslerini yükler; sistem, bu sesleri analiz ede
 - Klinik araştırmacılar
 
 ## Product Backlog  
-
+https://miro.com/app/board/uXjVIgjwiGI=/?share_link_id=736731013650
 ## SPRINT 1
 - **Sprint Notları**
-- **Tahmin Edilen/Tamamlanacak Puan:** 100/100
-- **Tahmin Mantığı:** 300 
+- **Tahmin Edilen/Tamamlanacak Puan:** 100/100 Sprint 1'de 100 puanlık backlog tamamlanmıştır.
+- **Tahmin Mantığı:** Proje tamamında 300 puanlık backlog bulunmaktadır. 
 - **Daily Scrum** : Whatsapp üzerinden toplantılar organize edilmiştir. Yapılacak ürün belirlendi. Projedeki takım rolleri belirlenmiştir. Veri kaynağı araştırmaları yapılmıştır.
 - **Sprint Board Updates**
 - **Screenshot**
+![Agile Board](https://github.com/user-attachments/assets/73c6ab46-4aa8-4ac2-b1d0-292cc4cb4d86)
 - **Sprint Review** : Alınan kararlar: Hangi veri setinin kullanılacağı belirlendi. 
 - **Sprint Retrospective** : Diğer 2 sprintte daha verimli çalışılacağına ve daha düzenli toplantılar yapılması kararlaştırıldı.
-![Agile Board](https://github.com/user-attachments/assets/73c6ab46-4aa8-4ac2-b1d0-292cc4cb4d86)
+
 
   
