@@ -43,8 +43,8 @@ Kullanıcılar sisteme konuşma seslerini yükler; sistem, bu sesleri analiz ede
 
 ## SPRINT 1
 - **Sprint Notları**
-- **Tahmin Edilen Tamamlanacak Puan**
-- **Tahmin Mantığı**
+- **Tahmin Edilen/Tamamlanacak Puan:** 100/100
+- **Tahmin Mantığı:** 300 
 - **Daily Scrum** : Whatsapp üzerinden toplantılar organize edilmiştir. Yapılacak ürün belirlendi. Projedeki takım rolleri belirlenmiştir. Veri kaynağı araştırmaları yapılmıştır.
 - **Sprint Board Updates**
 - **Screenshot**
