@@ -40,3 +40,13 @@ Kullanıcılar sisteme konuşma seslerini yükler; sistem, bu sesleri analiz ede
 - Klinik araştırmacılar
 
 ## Product Backlog  
+
+## SPRINT 1
+- **Sprint Notları**
+- **Tahmin Edilen Tamamlanacak Puan**
+- **Tahmin Mantığı**
+- **Daily Scrum** : Whatsapp üzerinden toplantılar organize edilmiştir. Yapılacak ürün belirlendi. Projedeki takım rolleri belirlenmiştir. Veri kaynağı araştırmaları yapılmıştır.
+- **Sprint Board Updates**
+- **Screenshot**
+- **Sprint Review** : Alınan kararlar: Hangi veri setinin kullanılacağı belirlendi. 
+- **Sprint Retrospective** : Diğer 2 sprintte daha verimli çalışılacağına ve daha düzenli toplantılar yapılması kararlaştırıldı.
