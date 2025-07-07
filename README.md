@@ -43,8 +43,9 @@ Kullanıcılar sisteme konuşma seslerini yükler; sistem, bu sesleri analiz ede
 [Miro Backlog Board](https://miro.com/app/board/uXjVIgjwiGI=/?share_link_id=736731013650)
 ## SPRINT 1
 - **Sprint Notları** : Takım rolleri belirlendi. Ürün belirlendi. Kaynak araştırması yapıldı. Projede yapılacaklar işlemler backlog olarak agile boarda eklendi.  Veri setinin özellikleri incelendi ve kategorilere ayrıldı. Özellik isimleri sınıflandırıldı. Gerekli kütüphaneler belirlendi ve kurulumu yapıldı.
-- **Tahmin Edilen/Tamamlanacak Puan:** 100/100 Sprint 1'de 100 puanlık backlog tamamlanmıştır.
-- **Tahmin Mantığı:** Proje tamamında 300 puanlık backlog bulunmaktadır. 
+- **Tahmin Edilen/Tamamlanacak Puan:** Proje başında tamamlanması belirlenen tasklar tamamlanarak belirlenen 33 puan tamamlanmıştır. Sprint 1 için tahmin edilen ve hedeflenen puan 33'tür. Belirlenen tasklar tamamlanmış ve 33 puanlık iş yapılmıştır.
+- ![image](https://github.com/user-attachments/assets/ab81bf0d-82d0-40a1-b7ff-1374a75ecb8d)
+- **Tahmin Mantığı:** Yapılacak taskların her birine zorluk derecesi, yapılabilme süreleri ve önem derecelerine göre puanlandırma yapılmıştır ve toplam puan 130'dur. Sprint 1de daha düşük tasklar yapılmasına kararlaştırılmış ve diğer sprintlere nazaran daha az puan tamamlanmıştır. ilk sprint için tamamlanan toplam puan 33tür.
 - **Daily Scrum** : Whatsapp üzerinden toplantılar organize edilmiştir. Yapılacak ürün belirlendi. Projedeki takım rolleri belirlenmiştir. Veri kaynağı araştırmaları yapılmıştır.
 - ![image](https://github.com/user-attachments/assets/e4ebd862-2bd8-4b19-8638-343de9d03b4e)
 - ![image](https://github.com/user-attachments/assets/c19dac36-6f26-4d0c-973b-536304cfa3ab)
