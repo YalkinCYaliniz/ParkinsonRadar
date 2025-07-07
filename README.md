@@ -46,9 +46,17 @@ Kullanıcılar sisteme konuşma seslerini yükler; sistem, bu sesleri analiz ede
 - **Tahmin Edilen/Tamamlanacak Puan:** 100/100 Sprint 1'de 100 puanlık backlog tamamlanmıştır.
 - **Tahmin Mantığı:** Proje tamamında 300 puanlık backlog bulunmaktadır. 
 - **Daily Scrum** : Whatsapp üzerinden toplantılar organize edilmiştir. Yapılacak ürün belirlendi. Projedeki takım rolleri belirlenmiştir. Veri kaynağı araştırmaları yapılmıştır.
+- ![image](https://github.com/user-attachments/assets/e4ebd862-2bd8-4b19-8638-343de9d03b4e)
+- ![image](https://github.com/user-attachments/assets/c19dac36-6f26-4d0c-973b-536304cfa3ab)
 - **Sprint Board Updates**
+- ![Agile Board](https://github.com/user-attachments/assets/73c6ab46-4aa8-4ac2-b1d0-292cc4cb4d86)
 - **Screenshot**
-![Agile Board](https://github.com/user-attachments/assets/73c6ab46-4aa8-4ac2-b1d0-292cc4cb4d86)
+![image](https://github.com/user-attachments/assets/68b63a19-5ae8-4f6b-8989-89dc1cdb9d36)
+![image](https://github.com/user-attachments/assets/ba3c9158-5b5a-4723-b1c2-c33c31bcbca9)
+![image](https://github.com/user-attachments/assets/faafdb4e-68bb-4b55-8c16-6e7d1d805d3a)
+
+
+
 - **Sprint Review** : Alınan kararlar: Hangi veri setinin kullanılacağı belirlendi. 
 - **Sprint Retrospective** : Diğer 2 sprintte daha verimli çalışılacağına ve daha düzenli toplantılar yapılması kararlaştırıldı.
 
