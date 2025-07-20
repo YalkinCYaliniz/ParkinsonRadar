@@ -61,5 +61,16 @@ Kullanıcılar sisteme konuşma seslerini yükler; sistem, bu sesleri analiz ede
 - **Sprint Review** : Alınan kararlar: Hangi veri setinin kullanılacağı belirlendi. 
 - **Sprint Retrospective** : Diğer 2 sprintte daha verimli çalışılacağına ve daha düzenli toplantılar yapılması kararlaştırıldı.
 
+## SPRINT 2
+- **Sprint Notları** : 
+- **Tahmin Edilen/Tamamlanacak Puan:** 
+- **Tahmin Mantığı:** 
+- **Daily Scrum** : Whatsapp üzerinden toplantılar organize edilmiştir. 
+- **Sprint Board Updates**
+- **Screenshot**
+
+- **Sprint Review** : 
+- **Sprint Retrospective** : 
+
 
   
