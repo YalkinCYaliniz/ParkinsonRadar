@@ -81,6 +81,7 @@ Kullanıcılar sisteme konuşma seslerini yükler; sistem, bu sesleri analiz ede
 <img width="1179" height="1410" alt="image" src="https://github.com/user-attachments/assets/007bae30-622e-483a-8da7-78a8a4c65672" />
 - **Sprint Board Updates**
 - <img src="https://github.com/user-attachments/assets/5bf0c687-f6f9-4bcc-bb40-ea8c7c1bfba0" />
+
 - **Screenshots**
 - ![image](https://github.com/user-attachments/assets/71469302-1e34-4d39-818d-03789a74d2a5)
 - ![image](https://github.com/user-attachments/assets/75968a54-c9b2-46be-b31e-801487d0d744)
