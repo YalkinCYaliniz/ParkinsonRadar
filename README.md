@@ -62,7 +62,7 @@ Kullanıcılar sisteme konuşma seslerini yükler; sistem, bu sesleri analiz ede
 - **Sprint Retrospective** : Diğer 2 sprintte daha verimli çalışılacağına ve daha düzenli toplantılar yapılması kararlaştırıldı.
 
 ## SPRINT 2
-- **Daily Scrum** : Toplantılar zoom üzerinden gerçekleşmiştir.
+
 - **Sprint Review** :  Bu sprint'te projemizde başlangıçta 755 sütunlu karmaşık veri setinden computational efficiency ve klinik doğruluk için 22 sütunlu UCI Parkinson's Dataset'e geçiş yaparak optimizasyon sağladık, ardından Jitter, Shimmer, NHR, RPDE, DFA, PPE gibi ses özelliklerini Parselmouth ve Librosa kullanarak çıkaran comprehensive bir pipeline geliştirdik ve her modeli farklı amaçlar için özelleştirdiğimiz ensemble model sistemi kurarak Flask tabanlı real-time audio recording, drag & drop file upload, interactive Plotly visualizations içeren responsive web uygulaması oluşturduk - Random Forest'ı hangi ses özelliğinin en önemli olduğunu anlamak için, XGBoost'u yüksek doğruluk oranı elde etmek için, LightGBM'i hızlı sonuç almak için, SVM'i karmaşık ses pattern'lerini ayırt etmek için, Neural Networks'ü ise insan kulağının bile fark edemeyeceği ince detayları yakalamak için kullandık, kritik olan mikrofon kayıtlarının dataset'le uyumsuzluğunu (consumer mikrofon ~45% jitter vs profesyonel stüdyo dataset ~0.6% jitter) multi-layer normalization stratejisi ile çözdük - önce statistical outlier detection (Z-score >3.0 için dataset mean+2σ correction), sonra physiological range clamping (jitter max %5, shimmer max %15), ardından ultra-strict validation (hala yüksekse healthy average'a çekme) ve son olarak adaptive correction factors ile environment detection yaparak noisy_environment için %95 jitter reduction, clean_environment için %70 reduction uygulayarak gerçekçi değerlere normalize ettik, normalize edilmiş küçük değerlerin (0.006 jitter) grafiklerde görünmez olması problemini feature-specific multiplier sistemi (×2000'e kadar çarpanlar) ve detailed hover tooltips ile çözdük, görselleştirme sisteminde kullanıcıların her bir ses özelliğini tek tek inceleyebilmesi, mouse ile grafik üzerinde gezinerek detaylı değerleri görebilmesi, analiz sonuçlarını JSON formatında export edebilmesi ve comprehensive PDF rapor olarak indirebilmesi özelliklerini ekledik.
 - **Tahmin Edilen/Tamamlanacak Puan:** Sprint 2 için tahmin edilen ve hedeflenen puan 53'tür. Belirlenen tasklar tamamlanmış ve 53 puanlık iş yapılmıştır.
 ÖZELLIK           ÖNCESI    SONRASI    İYİLEŞME
@@ -72,6 +72,9 @@ NHR               0.87   →  0.095      %89 azalma
 RPDE              0.083  →  0.387      %366 artış (doğru yön)
 Model Accuracy    12%    →  87%       %625 iyileşme
 
+- **Daily Scrum** : Toplantılar zoom üzerinden gerçekleşmiştir.
+- **Sprint Board Updates**
+- **Screenshot**
 - ![image](https://github.com/user-attachments/assets/71469302-1e34-4d39-818d-03789a74d2a5)
 - ![image](https://github.com/user-attachments/assets/75968a54-c9b2-46be-b31e-801487d0d744)
 - ![image](https://github.com/user-attachments/assets/6727bd9b-95ec-429f-8eba-991a6c81c651)
@@ -81,6 +84,7 @@ Model Accuracy    12%    →  87%       %625 iyileşme
 - ![image](https://github.com/user-attachments/assets/792c78f1-6d07-48d3-9895-d19ba91e529a)
 - ![image](https://github.com/user-attachments/assets/74df66e6-6c2a-497d-87e1-1994b3810423)
 
+- **Sprint Review** :
 - **Sprint Retrospective** : Sprint 2'de veri seti optimizasyonu, ensemble model kurulumu ve Flask tabanlı web uygulaması geliştirme ile önemli ilerleme kaydettik.Ancak bu sprint'te karşılaştığımız temel zorluklardan biri, veri setinin kaydedildiği profesyonel stüdyo mikrofonları ile bizim kullandığımız tüketici mikrofonları arasındaki uyumsuzluktan kaynaklanan çevresel faktörler ve ses kalitesi farklılıklarıydı. Özellikle jitter gibi ses özelliklerinde ciddi sapmalar yaşadık. Bu sorunu, çok katmanlı normalizasyon stratejisi (istatistiksel aykırı değer tespiti, fizyolojik aralık sınırlaması, ultra-katı doğrulama ve adaptif düzeltme faktörleri) uygulayarak başarılı bir şekilde giderdik. Bu sayede, farklı kayıt ortamlarından gelen verileri başarılı bir şekilde standardize edebildik.
 
 
