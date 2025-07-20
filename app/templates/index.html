@@ -1,0 +1,313 @@
+{% extends "base.html" %} {% block title %}Parkinson Ses Analizi - Ana Sayfa{%
+endblock %} {% block content %}
+<div class="hero-section">
+  <div class="container">
+    <div class="row align-items-center min-vh-100 py-5">
+      <div class="col-lg-6">
+        <div class="hero-content">
+          <h1 class="display-4 fw-bold text-primary mb-4">
+            <i class="fas fa-microphone-alt me-3"></i>
+            Parkinson Hastalığı Ses Analizi
+          </h1>
+          <p class="lead text-muted mb-4">
+            Yapay zeka destekli ses analizi ile Parkinson hastalığının erken
+            teşhisine yardımcı olan gelişmiş teknoloji. Ses kaydınızı yapın ve
+            anında analiz sonuçlarını görün.
+          </p>
+          <div class="hero-stats row g-3 mb-4">
+            <div class="col-4">
+              <div class="stat-card text-center p-3">
+                <div class="stat-number">95%+</div>
+                <div class="stat-label">Doğruluk</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="stat-card text-center p-3">
+                <div class="stat-number">22</div>
+                <div class="stat-label">Özellik</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="stat-card text-center p-3">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Model</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="recording-section">
+          <div class="card recording-card shadow-lg">
+            <div class="card-body p-4">
+              <h3 class="card-title text-center mb-4">
+                <i class="fas fa-waveform me-2"></i>
+                Ses Kaydı Yapın
+              </h3>
+
+              <!-- Recording Controls -->
+              <div class="recording-controls text-center mb-4">
+                <button id="recordBtn" class="btn btn-record btn-lg me-3">
+                  <i class="fas fa-microphone"></i>
+                  <span>Kayıt Başlat</span>
+                </button>
+                <button id="stopBtn" class="btn btn-stop btn-lg" disabled>
+                  <i class="fas fa-stop"></i>
+                  <span>Durdur</span>
+                </button>
+              </div>
+
+              <!-- Recording Status -->
+              <div
+                id="recordingStatus"
+                class="recording-status text-center mb-3"
+                style="display: none"
+              >
+                <div class="pulse-animation">
+                  <i class="fas fa-circle text-danger"></i>
+                </div>
+                <span class="ms-2"
+                  >Kayıt yapılıyor...
+                  <span id="recordingTime">00:00</span></span
+                >
+              </div>
+
+              <!-- Audio Player -->
+              <div
+                id="audioPlayer"
+                class="audio-player mb-3"
+                style="display: none"
+              >
+                <audio controls class="w-100">
+                  <source id="audioSource" type="audio/wav" />
+                </audio>
+              </div>
+
+              <!-- File Upload -->
+              <div class="file-upload-section">
+                <div class="upload-divider text-center mb-3">
+                  <span class="text-muted">veya</span>
+                </div>
+                <div class="file-upload-area" id="fileUploadArea">
+                  <input
+                    type="file"
+                    id="audioFile"
+                    accept="audio/*"
+                    class="d-none"
+                  />
+                  <div class="upload-content text-center">
+                    <i
+                      class="fas fa-cloud-upload-alt fa-2x text-primary mb-2"
+                    ></i>
+                    <p class="mb-1">Ses dosyası yükleyin</p>
+                    <small class="text-muted"
+                      >WAV, MP3, M4A formatları desteklenir</small
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Analyze Button -->
+              <button
+                id="analyzeBtn"
+                class="btn btn-primary btn-lg w-100 mt-3"
+                disabled
+              >
+                <i class="fas fa-chart-line me-2"></i>
+                Analiz Et
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Analysis Results Section -->
+<div id="resultsSection" class="results-section py-5" style="display: none">
+  <div class="container">
+    <!-- Prediction Results -->
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="card results-card shadow">
+          <div class="card-body p-4">
+            <h3 class="card-title text-center mb-4">
+              <i class="fas fa-diagnoses me-2"></i>
+              Analiz Sonuçları
+            </h3>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="prediction-result text-center">
+                  <div id="predictionIcon" class="prediction-icon mb-3">
+                    <i class="fas fa-question-circle fa-4x"></i>
+                  </div>
+                  <h4 id="predictionText" class="prediction-text mb-2">
+                    Analiz Ediliyor...
+                  </h4>
+                  <p id="predictionDescription" class="text-muted mb-3">
+                    Lütfen bekleyin
+                  </p>
+                  <div class="probability-bar">
+                    <div class="progress mb-2" style="height: 20px">
+                      <div
+                        id="probabilityBar"
+                        class="progress-bar"
+                        role="progressbar"
+                        style="width: 0%"
+                      ></div>
+                    </div>
+                    <small id="probabilityText" class="text-muted"
+                      >Olasılık: %0</small
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="risk-assessment">
+                  <h5 class="mb-3">Risk Değerlendirmesi</h5>
+                  <div id="riskLevel" class="risk-level">
+                    <div class="alert alert-info">
+                      <i class="fas fa-info-circle me-2"></i>
+                      Analiz sonuçları hesaplanıyor...
+                    </div>
+                  </div>
+                  <div class="confidence-meter mt-3">
+                    <label class="form-label">Güven Seviyesi</label>
+                    <div class="progress" style="height: 15px">
+                      <div
+                        id="confidenceBar"
+                        class="progress-bar bg-info"
+                        role="progressbar"
+                        style="width: 0%"
+                      ></div>
+                    </div>
+                    <small id="confidenceText" class="text-muted"
+                      >Güven: %0</small
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature Analysis -->
+    <div class="row mb-5">
+      <div class="col-lg-6">
+        <div class="card chart-card shadow">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+              <i class="fas fa-chart-bar me-2"></i>
+              Ses Özelliklerinin Karşılaştırması
+            </h5>
+          </div>
+          <div class="card-body">
+            <div id="featureComparisonPlot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card chart-card shadow">
+          <div class="card-header bg-success text-white">
+            <h5 class="mb-0">
+              <i class="fas fa-chart-radar me-2"></i>
+              Ses Profili Radar Grafiği
+            </h5>
+          </div>
+          <div class="card-body">
+            <div id="radarPlot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detailed Features -->
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="card features-card shadow">
+          <div class="card-header bg-info text-white">
+            <h5 class="mb-0">
+              <i class="fas fa-list-alt me-2"></i>
+              Detaylı Ses Özellikleri
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <h6 class="feature-category">Frekans Özellikleri</h6>
+                <div id="frequencyFeatures" class="feature-list"></div>
+              </div>
+              <div class="col-md-4">
+                <h6 class="feature-category">Ses Kalitesi</h6>
+                <div id="qualityFeatures" class="feature-list"></div>
+              </div>
+              <div class="col-md-4">
+                <h6 class="feature-category">Karmaşıklık Ölçüleri</h6>
+                <div id="complexityFeatures" class="feature-list"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Information Section -->
+<div class="info-section py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="mb-4">Nasıl Çalışır?</h2>
+        <p class="lead text-muted mb-5">
+          Sistemimiz, ses kayıtlarından 22 farklı özellik çıkararak yapay zeka
+          modelleri ile analiz yapar.
+        </p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="info-card text-center">
+          <div class="info-icon">
+            <i class="fas fa-microphone fa-3x text-primary"></i>
+          </div>
+          <h4>1. Ses Kaydı</h4>
+          <p class="text-muted">
+            En az 3 saniye süreyle "aaa" sesi çıkarın veya ses dosyanızı
+            yükleyin.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card text-center">
+          <div class="info-icon">
+            <i class="fas fa-cogs fa-3x text-success"></i>
+          </div>
+          <h4>2. Özellik Çıkarımı</h4>
+          <p class="text-muted">
+            Sistem otomatik olarak ses özelliklerini analiz eder ve çıkarır.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card text-center">
+          <div class="info-icon">
+            <i class="fas fa-chart-line fa-3x text-warning"></i>
+          </div>
+          <h4>3. AI Analizi</h4>
+          <p class="text-muted">
+            Makine öğrenmesi modelleri ile risk değerlendirmesi yapılır.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/audio-recorder.js') }}"></script>
+<script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+{% endblock %}

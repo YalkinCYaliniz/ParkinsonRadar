@@ -1,0 +1,252 @@
+{% extends "base.html" %} {% block title %}Hakkında - Parkinson Ses Analizi{%
+endblock %} {% block content %}
+<div class="about-hero py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h1 class="display-4 fw-bold text-primary mb-4">
+          <i class="fas fa-brain me-3"></i>
+          Parkinson Hastalığı Ses Analizi Sistemi
+        </h1>
+        <p class="lead text-muted">
+          Yapay zeka ve makine öğrenmesi teknolojileri kullanarak ses analizi
+          ile Parkinson hastalığının erken teşhisine yardımcı olan ileri
+          teknoloji sistemi.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="py-5">
+  <div class="container">
+    <!-- Proje Hakkında -->
+    <div class="row mb-5">
+      <div class="col-lg-6">
+        <div class="about-content">
+          <h2 class="mb-4">
+            <i class="fas fa-project-diagram text-primary me-2"></i>
+            Proje Hakkında
+          </h2>
+          <p class="text-muted mb-4">
+            Bu sistem, Parkinson hastalığının erken teşhisinde yardımcı olmak
+            amacıyla geliştirilmiştir. Ses kayıtlarından çıkarılan özellikler
+            kullanılarak, gelişmiş makine öğrenmesi ve derin öğrenme modelleri
+            ile analiz yapılmaktadır.
+          </p>
+          <p class="text-muted mb-4">
+            Parkinson hastalığının ses ve konuşma bozukluklarına neden olduğu
+            bilinmektedir. Bu özellik, hastalığın erken teşhisinde ses
+            analizinin önemli bir araç olarak kullanılabileceğini
+            göstermektedir.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="feature-list">
+          <h3 class="mb-4">
+            <i class="fas fa-star text-warning me-2"></i>
+            Öne Çıkan Özellikler
+          </h3>
+          <ul class="list-unstyled">
+            <li class="mb-3">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              <strong>Yüksek Doğruluk:</strong> %95+ doğruluk oranı
+            </li>
+            <li class="mb-3">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              <strong>Hızlı Analiz:</strong> Anında sonuç alma
+            </li>
+            <li class="mb-3">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              <strong>Güvenli İşlem:</strong> Veriler saklanmaz
+            </li>
+            <li class="mb-3">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              <strong>Kolay Kullanım:</strong> Basit arayüz
+            </li>
+            <li class="mb-3">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              <strong>Detaylı Rapor:</strong> Kapsamlı analiz sonuçları
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Teknik Detaylar -->
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">
+              <i class="fas fa-cogs me-2"></i>
+              Teknik Detaylar
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <h5 class="text-primary mb-3">Ses Özellik Çıkarımı</h5>
+                <ul class="list-unstyled">
+                  <li>
+                    <strong>Fundamental Frekans:</strong> MDVP analizi (Fo, Fhi,
+                    Flo)
+                  </li>
+                  <li>
+                    <strong>Jitter Ölçümleri:</strong> Frekans varyasyon analizi
+                  </li>
+                  <li>
+                    <strong>Shimmer Ölçümleri:</strong> Genlik varyasyon analizi
+                  </li>
+                  <li><strong>Gürültü Analizi:</strong> NHR ve HNR oranları</li>
+                  <li><strong>Karmaşıklık Ölçüleri:</strong> RPDE, DFA, D2</li>
+                  <li>
+                    <strong>Spread Özellikleri:</strong> Frekans dağılım analizi
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h5 class="text-success mb-3">Makine Öğrenmesi Modelleri</h5>
+                <ul class="list-unstyled">
+                  <li><strong>Random Forest:</strong> Ensemble öğrenme</li>
+                  <li><strong>XGBoost:</strong> Gradient boosting</li>
+                  <li><strong>LightGBM:</strong> Hızlı gradient boosting</li>
+                  <li><strong>SVM:</strong> Destek vektör makineleri</li>
+                  <li><strong>Deep Learning:</strong> Derin sinir ağları</li>
+                  <li><strong>Ensemble:</strong> Model birleştirme</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Veri Seti Bilgileri -->
+    <div class="row mb-5">
+      <div class="col-lg-8 mx-auto">
+        <div class="card shadow">
+          <div class="card-header bg-info text-white">
+            <h3 class="mb-0">
+              <i class="fas fa-database me-2"></i>
+              Veri Seti Bilgileri
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="row text-center">
+              <div class="col-md-3">
+                <div class="stat-item">
+                  <div class="stat-number text-primary">195</div>
+                  <div class="stat-label">Toplam Kayıt</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="stat-item">
+                  <div class="stat-number text-danger">147</div>
+                  <div class="stat-label">Parkinson Hastası</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="stat-item">
+                  <div class="stat-number text-success">48</div>
+                  <div class="stat-label">Sağlıklı Birey</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="stat-item">
+                  <div class="stat-number text-warning">22</div>
+                  <div class="stat-label">Ses Özelliği</div>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <p class="text-muted mb-0">
+              Veri seti, farklı yaş gruplarından ve cinsiyetlerden
+              katılımcıların ses kayıtlarını içermektedir. Tüm kayıtlar aynı
+              koşullarda "aaa" sesinin sürdürülmesi ile elde edilmiştir.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nasıl Kullanılır -->
+    <div class="row mb-5">
+      <div class="col-12">
+        <h2 class="text-center mb-5">
+          <i class="fas fa-question-circle text-primary me-2"></i>
+          Nasıl Kullanılır?
+        </h2>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="how-to-card text-center p-4">
+              <div class="step-number">1</div>
+              <i class="fas fa-microphone fa-3x text-primary mb-3"></i>
+              <h4>Ses Kaydı</h4>
+              <p class="text-muted">
+                En az 3 saniye süreyle "aaa" sesi çıkarın. Mikrofonunuzun açık
+                olduğundan emin olun.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="how-to-card text-center p-4">
+              <div class="step-number">2</div>
+              <i class="fas fa-upload fa-3x text-success mb-3"></i>
+              <h4>Dosya Yükleme</h4>
+              <p class="text-muted">
+                Alternatif olarak mevcut ses dosyanızı (WAV, MP3, M4A)
+                yükleyebilirsiniz.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="how-to-card text-center p-4">
+              <div class="step-number">3</div>
+              <i class="fas fa-chart-line fa-3x text-warning mb-3"></i>
+              <h4>Analiz Sonuçları</h4>
+              <p class="text-muted">
+                Sistem otomatik olarak analiz yaparak detaylı sonuçları
+                gösterecektir.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Önemli Notlar -->
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <div class="alert alert-warning">
+          <h5 class="alert-heading">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            Önemli Notlar
+          </h5>
+          <hr />
+          <ul class="mb-0">
+            <li class="mb-2">
+              <strong>Tıbbi Tavsiye Değildir:</strong> Bu sistem sadece
+              araştırma amaçlıdır ve tıbbi tanı koymaz. Kesinlikle bir doktora
+              danışınız.
+            </li>
+            <li class="mb-2">
+              <strong>Gizlilik:</strong> Ses kayıtlarınız sunucuda saklanmaz ve
+              analiz sonrası otomatik olarak silinir.
+            </li>
+            <li class="mb-2">
+              <strong>Kalite:</strong> En iyi sonuçlar için sessiz bir ortamda
+              ve kaliteli mikrofonla kayıt yapın.
+            </li>
+            <li class="mb-0">
+              <strong>Tarayıcı Desteği:</strong> Modern web tarayıcıları
+              (Chrome, Firefox, Safari, Edge) önerilir.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,579 @@
+/* ==========================================================================
+   Parkinson Voice Analysis - Custom Styles
+   ========================================================================== */
+
+/* Root Variables */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --gradient-warning: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+}
+
+/* Base Styles */
+body {
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+  color: var(--dark-color);
+  background-color: #f8f9fa;
+}
+
+.main-content {
+  padding-top: 80px;
+  min-height: calc(100vh - 80px);
+}
+
+/* Navigation Styles */
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Hero Section */
+.hero-section {
+  background: var(--gradient-primary);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
+  background-size: cover;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content h1 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Statistics Cards */
+.stat-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Recording Card */
+.recording-card {
+  border-radius: 20px;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.recording-card:hover {
+  transform: translateY(-10px);
+}
+
+/* Recording Controls */
+.btn-record {
+  background: var(--gradient-success);
+  border: none;
+  border-radius: 50px;
+  padding: 15px 30px;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: var(--box-shadow);
+}
+
+.btn-record:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--box-shadow-lg);
+  color: white;
+}
+
+.btn-record:disabled {
+  background: var(--secondary-color);
+  transform: none;
+}
+
+.btn-stop {
+  background: var(--gradient-warning);
+  border: none;
+  border-radius: 50px;
+  padding: 15px 30px;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: var(--box-shadow);
+}
+
+.btn-stop:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--box-shadow-lg);
+  color: white;
+}
+
+.btn-stop:disabled {
+  background: var(--secondary-color);
+  transform: none;
+}
+
+/* Recording Status */
+.recording-status {
+  background: rgba(220, 53, 69, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.pulse-animation {
+  display: inline-block;
+  animation: pulse-dot 1s infinite;
+}
+
+@keyframes pulse-dot {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* File Upload Area */
+.file-upload-area {
+  border: 2px dashed var(--primary-color);
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: rgba(0, 123, 255, 0.05);
+}
+
+.file-upload-area:hover {
+  border-color: var(--success-color);
+  background: rgba(40, 167, 69, 0.05);
+  transform: translateY(-2px);
+}
+
+.file-upload-area.dragover {
+  border-color: var(--success-color);
+  background: rgba(40, 167, 69, 0.1);
+  transform: scale(1.02);
+}
+
+/* Upload Divider */
+.upload-divider {
+  position: relative;
+  margin: 20px 0;
+}
+
+.upload-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--secondary-color);
+  opacity: 0.3;
+}
+
+.upload-divider span {
+  background: white;
+  padding: 0 15px;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+/* Results Section */
+.results-section {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.results-card,
+.chart-card,
+.features-card {
+  border-radius: 15px;
+  border: none;
+  box-shadow: var(--box-shadow-lg);
+  transition: transform 0.3s ease;
+}
+
+.results-card:hover,
+.chart-card:hover,
+.features-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Prediction Results */
+.prediction-result {
+  padding: 20px;
+}
+
+.prediction-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.prediction-text {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.probability-bar .progress {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.probability-bar .progress-bar {
+  transition: width 1s ease-in-out;
+}
+
+/* Risk Assessment */
+.risk-level .alert {
+  border-radius: 15px;
+  border: none;
+  font-weight: 500;
+}
+
+.confidence-meter .progress {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Chart Cards */
+.chart-card .card-header {
+  border-radius: 15px 15px 0 0;
+  border: none;
+  font-weight: 600;
+}
+
+/* Feature Lists */
+.feature-category {
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+}
+
+.feature-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.feature-name {
+  font-weight: 500;
+  color: var(--dark-color);
+}
+
+.feature-value {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+/* Info Section */
+.info-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+.info-card:hover {
+  transform: translateY(-10px);
+}
+
+.info-icon {
+  margin-bottom: 20px;
+}
+
+.info-card h4 {
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+/* About Page Styles */
+.about-hero {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.stat-item {
+  padding: 20px;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--secondary-color);
+}
+
+.how-to-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease;
+  position: relative;
+  height: 100%;
+}
+
+.how-to-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--box-shadow-lg);
+}
+
+.step-number {
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  background: var(--primary-color);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+/* Loading Modal */
+.modal-content {
+  border-radius: 20px;
+  border: none;
+}
+
+.progress {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.6s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .stat-card {
+    margin-bottom: 15px;
+  }
+
+  .recording-controls {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .btn-record,
+  .btn-stop {
+    width: 100%;
+    margin: 0;
+  }
+
+  .prediction-result {
+    margin-bottom: 30px;
+  }
+
+  .chart-card {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .recording-card {
+    margin: 20px 0;
+  }
+
+  .info-card {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0056b3;
+}
+
+/* Focus Styles */
+.btn:focus,
+.form-control:focus,
+input[type="file"]:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+/* Utility Classes */
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.bg-gradient-success {
+  background: var(--gradient-success);
+}
+
+.bg-gradient-warning {
+  background: var(--gradient-warning);
+}
