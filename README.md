@@ -92,7 +92,7 @@ Kullanıcılar sisteme konuşma seslerini yükler; sistem, bu sesleri analiz ede
 - ![image](https://github.com/user-attachments/assets/792c78f1-6d07-48d3-9895-d19ba91e529a)
 - ![image](https://github.com/user-attachments/assets/74df66e6-6c2a-497d-87e1-1994b3810423)
 - **Sprint Review** : Sprint 2'de veri seti optimizasyonu, ensemble model kurulumu ve Flask tabanlı web uygulaması geliştirme ile önemli ilerleme kaydettik.Ancak bu sprint'te karşılaştığımız temel zorluklardan biri, veri setinin kaydedildiği profesyonel stüdyo mikrofonları ile bizim kullandığımız tüketici mikrofonları arasındaki uyumsuzluktan kaynaklanan çevresel faktörler ve ses kalitesi farklılıklarıydı. Özellikle jitter gibi ses özelliklerinde ciddi sapmalar yaşadık. Bu sorunu, çok katmanlı normalizasyon stratejisi (istatistiksel aykırı değer tespiti, fizyolojik aralık sınırlaması, ultra-katı doğrulama ve adaptif düzeltme faktörleri) uygulayarak başarılı bir şekilde giderdik. Bu sayede, farklı kayıt ortamlarından gelen verileri başarılı bir şekilde standardize edebildik.
-- **Sprint Retrospective :**  Sprint 3'te tamamlanacak tasklar belirlendi. 
+- **Sprint Retrospective :** Bu sprintte ekip içi iletişimi güçlendirmek adına daha sık ve verimli toplantılar gerçekleştirdik. Görev dağılımlarını daha net yaparak sorumlulukların takibini kolaylaştırdık. Ayrıca, ekip üyeleri arasında daha açık ve destekleyici bir iletişim ortamı oluşturmayı başardık.
 
 
 
