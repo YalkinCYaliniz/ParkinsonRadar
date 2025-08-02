@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for, flash
 import os
 import numpy as np
 import pandas as pd
@@ -12,13 +12,43 @@ from plotly.utils import PlotlyJSONEncoder
 import warnings
 warnings.filterwarnings('ignore')
 
+# Authentication imports
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from flask_bcrypt import Bcrypt
+from flask_mail import Mail, Message
+from app.database import User, init_database
+from app.forms import LoginForm, RegisterForm, ProfileForm
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'parkinson_detection_2024'
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
+# Email configuration (Demo mode - gerçek kullanım için email ayarlarını güncelleyin)
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'demo@example.com')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'demo_password') 
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME', 'demo@example.com')
+app.config['MAIL_SUPPRESS_SEND'] = os.environ.get('MAIL_SUPPRESS_SEND', 'True').lower() == 'true'  # Demo mode
+
+# Initialize extensions
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+login_manager.login_message = 'Bu sayfaya erişmek için giriş yapmanız gerekiyor.'
+login_manager.login_message_category = 'info'
+
+bcrypt = Bcrypt(app)
+mail = Mail(app)
+
 # Create upload directory
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get_user_by_id(int(user_id))
 
 # Global variables
 model_trainer = None
@@ -28,6 +58,10 @@ parkinson_stats = None
 def initialize_models():
     """Initialize the model trainer and load statistics"""
     global model_trainer, healthy_stats, parkinson_stats
+    
+    # Initialize database
+    print("Initializing database...")
+    init_database()
     
     try:
         # Try to load existing models
@@ -86,6 +120,46 @@ def upload_audio():
         feature_comparison_plot = create_feature_comparison_plot(features)
         radar_plot = create_radar_plot(features)
         
+        # Save analysis to history if user is logged in
+        if current_user.is_authenticated:
+            try:
+                from app.database import Database
+                db = Database()
+                db.connect()
+                
+                # Normalize prediction result for consistent storage
+                normalized_prediction = prediction_result.copy()
+                
+                # Ensure both old and new format fields exist
+                if 'consensus_prediction' in normalized_prediction:
+                    normalized_prediction['prediction'] = normalized_prediction['consensus_prediction']
+                if 'consensus_probability' in normalized_prediction:
+                    normalized_prediction['probability'] = normalized_prediction['consensus_probability']
+                
+                # Add risk level if not present
+                if 'risk_level' not in normalized_prediction and 'probability' in normalized_prediction:
+                    prob = normalized_prediction['probability']
+                    if prob < 0.3:
+                        normalized_prediction['risk_level'] = 'Low'
+                    elif prob < 0.7:
+                        normalized_prediction['risk_level'] = 'Medium'
+                    else:
+                        normalized_prediction['risk_level'] = 'High'
+                
+                # Ensure data is JSON serializable
+                prediction_json = json.dumps(normalized_prediction, default=str)
+                features_json = json.dumps(features, default=str)
+                
+                db.execute_query(
+                    """INSERT INTO analysis_history (user_id, filename, prediction_result, features)
+                       VALUES (%s, %s, %s, %s)""",
+                    (current_user.id, filename, prediction_json, features_json)
+                )
+                
+                db.close()
+            except Exception as e:
+                print(f"Error saving analysis history: {e}")
+        
         # Clean up uploaded file
         os.remove(file_path)
         
@@ -101,6 +175,7 @@ def upload_audio():
     except Exception as e:
         print(f"Error in upload_audio: {e}")
         return jsonify({'error': f'Analysis failed: {str(e)}'}), 500
+
 
 def create_feature_comparison_plot(user_features):
     """Create comparison plot with adaptive scaling for better visibility"""
@@ -370,6 +445,157 @@ def get_statistics():
 def about():
     """About page with information about the project"""
     return render_template('about.html')
+
+# Authentication Routes
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """User login page"""
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.get_user_by_username(form.username.data)
+        if user and user.check_password(form.password.data):
+            login_user(user)
+            flash('Başarıyla giriş yaptınız!', 'success')
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('index'))
+        else:
+            flash('Kullanıcı adı veya şifre hatalı!', 'danger')
+    
+    return render_template('auth/login.html', form=form)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    """User registration page"""
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user_id, message = User.create_user(
+            username=form.username.data,
+            email=form.email.data,
+            password=form.password.data,
+            full_name=form.full_name.data if form.full_name.data else None
+        )
+        
+        if user_id:
+            flash(message, 'success')
+            return redirect(url_for('login'))
+        else:
+            flash(message, 'danger')
+    
+    return render_template('auth/register.html', form=form)
+
+@app.route('/logout')
+@login_required
+def logout():
+    """User logout"""
+    logout_user()
+    flash('Başarıyla çıkış yaptınız!', 'info')
+    return redirect(url_for('index'))
+
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    """User profile page"""
+    form = ProfileForm(original_email=current_user.email)
+    
+    if form.validate_on_submit():
+        success, message = current_user.update_profile(
+            full_name=form.full_name.data,
+            email=form.email.data
+        )
+        
+        if success:
+            flash(message, 'success')
+            return redirect(url_for('profile'))
+        else:
+            flash(message, 'danger')
+    
+    # Pre-populate form with current user data
+    if request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+        form.full_name.data = current_user.full_name
+    
+    return render_template('auth/profile.html', form=form)
+
+@app.route('/analysis_history')
+@login_required
+def analysis_history():
+    """View user's analysis history"""
+    from app.database import Database
+    
+    db = Database()
+    db.connect()
+    
+    history = db.execute_query(
+        """SELECT * FROM analysis_history 
+           WHERE user_id = %s 
+           ORDER BY created_at DESC LIMIT 50""",
+        (current_user.id,),
+        fetch=True
+    )
+    
+    # Ensure prediction_result is properly parsed
+    if history:
+        for record in history:
+            if record['prediction_result'] and isinstance(record['prediction_result'], str):
+                import json
+                try:
+                    record['prediction_result'] = json.loads(record['prediction_result'])
+                except:
+                    record['prediction_result'] = {}
+            if record['features'] and isinstance(record['features'], str):
+                import json
+                try:
+                    record['features'] = json.loads(record['features'])
+                except:
+                    record['features'] = {}
+    
+    db.close()
+    return render_template('auth/history.html', history=history)
+
+@app.route('/api/user_stats')
+@login_required
+def user_stats():
+    """Get user statistics for profile page"""
+    from app.database import Database
+    from datetime import datetime, timedelta
+    
+    db = Database()
+    db.connect()
+    
+    # Total analyses
+    total = db.fetch_one(
+        "SELECT COUNT(*) as count FROM analysis_history WHERE user_id = %s",
+        (current_user.id,)
+    )
+    
+    # Analyses this week
+    week_ago = datetime.now() - timedelta(days=7)
+    week = db.fetch_one(
+        "SELECT COUNT(*) as count FROM analysis_history WHERE user_id = %s AND created_at >= %s",
+        (current_user.id, week_ago)
+    )
+    
+    # Last analysis
+    last = db.fetch_one(
+        "SELECT created_at FROM analysis_history WHERE user_id = %s ORDER BY created_at DESC LIMIT 1",
+        (current_user.id,)
+    )
+    
+    db.close()
+    
+    return jsonify({
+        'total': total['count'] if total else 0,
+        'week': week['count'] if week else 0,
+        'last': last['created_at'].strftime('%d/%m/%Y') if last and last['created_at'] else 'Henüz yok'
+    })
 
 if __name__ == '__main__':
     print("Initializing Parkinson's Detection System...")

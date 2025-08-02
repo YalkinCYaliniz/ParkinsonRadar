@@ -24,7 +24,7 @@ def main():
         initialize_models()
         
         # Start Flask application
-        app.run(debug=True, host='0.0.0.0', port=5000)
+        app.run(debug=True, host='0.0.0.0', port=5002)
         
     except ImportError as e:
         print(f"Import Error: {e}")

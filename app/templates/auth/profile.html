@@ -1,0 +1,174 @@
+{% extends "base.html" %} {% block title %}Profilim - Parkinson Ses Analizi{%
+endblock %} {% block content %}
+<div class="container mt-5 pt-5">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card shadow-lg">
+        <div class="card-header bg-info text-white">
+          <h3 class="mb-0">
+            <i class="fas fa-user-circle me-2"></i>
+            Profilim
+          </h3>
+        </div>
+        <div class="card-body p-4">
+          <!-- Flash messages -->
+          {% with messages = get_flashed_messages(with_categories=true) %} {% if
+          messages %} {% for category, message in messages %}
+          <div
+            class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show"
+            role="alert"
+          >
+            {{ message }}
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+            ></button>
+          </div>
+          {% endfor %} {% endif %} {% endwith %}
+
+          <div class="row">
+            <div class="col-md-6">
+              <h5 class="mb-3">Profil Bilgileri</h5>
+              <form method="POST">
+                {{ form.hidden_tag() }}
+
+                <div class="mb-3">
+                  {{ form.username.label(class="form-label") }} {{
+                  form.username(class="form-control", readonly=true) }}
+                  <small class="form-text text-muted"
+                    >Kullanıcı adı değiştirilemez</small
+                  >
+                </div>
+
+                <div class="mb-3">
+                  {{ form.email.label(class="form-label") }} {{
+                  form.email(class="form-control" + (" is-invalid" if
+                  form.email.errors else "")) }} {% if form.email.errors %}
+                  <div class="invalid-feedback">
+                    {% for error in form.email.errors %} {{ error }} {% endfor
+                    %}
+                  </div>
+                  {% endif %}
+                </div>
+
+                <div class="mb-3">
+                  {{ form.full_name.label(class="form-label") }} {{
+                  form.full_name(class="form-control" + (" is-invalid" if
+                  form.full_name.errors else "")) }} {% if form.full_name.errors
+                  %}
+                  <div class="invalid-feedback">
+                    {% for error in form.full_name.errors %} {{ error }} {%
+                    endfor %}
+                  </div>
+                  {% endif %}
+                </div>
+
+                <div class="d-grid">
+                  {{ form.submit(class="btn btn-info btn-lg") }}
+                </div>
+              </form>
+            </div>
+
+            <div class="col-md-6">
+              <h5 class="mb-3">Hesap Bilgileri</h5>
+              <div class="card bg-light">
+                <div class="card-body">
+                  <p>
+                    <strong>Üyelik Tarihi:</strong><br />
+                    {{ current_user.created_at.strftime('%d/%m/%Y %H:%M') if
+                    current_user.created_at else 'Bilinmiyor' }}
+                  </p>
+
+                  <hr />
+
+                  <h6>Hızlı İşlemler</h6>
+                  <div class="d-grid gap-2">
+                    <a
+                      href="{{ url_for('analysis_history') }}"
+                      class="btn btn-outline-primary"
+                    >
+                      <i class="fas fa-history me-2"></i>
+                      Analiz Geçmişi
+                    </a>
+                    <a
+                      href="{{ url_for('index') }}"
+                      class="btn btn-outline-success"
+                    >
+                      <i class="fas fa-microphone me-2"></i>
+                      Yeni Analiz Yap
+                    </a>
+                    <a
+                      href="{{ url_for('logout') }}"
+                      class="btn btn-outline-danger"
+                    >
+                      <i class="fas fa-sign-out-alt me-2"></i>
+                      Çıkış Yap
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Account Statistics -->
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-chart-bar me-2"></i>
+            Hesap İstatistikleri
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row text-center">
+            <div class="col-md-4">
+              <div class="stat-item">
+                <i class="fas fa-microphone-alt fa-2x text-primary mb-2"></i>
+                <h4 id="totalAnalyses">-</h4>
+                <p class="text-muted">Toplam Analiz</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stat-item">
+                <i class="fas fa-calendar-week fa-2x text-success mb-2"></i>
+                <h4 id="weekAnalyses">-</h4>
+                <p class="text-muted">Bu Hafta</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stat-item">
+                <i class="fas fa-clock fa-2x text-info mb-2"></i>
+                <h4 id="lastAnalysis">-</h4>
+                <p class="text-muted">Son Analiz</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_scripts %}
+<script>
+  // Load user statistics
+  fetch("/api/user_stats")
+    .then((response) => response.json())
+    .then((data) => {
+      document.getElementById("totalAnalyses").textContent = data.total || 0;
+      document.getElementById("weekAnalyses").textContent = data.week || 0;
+      document.getElementById("lastAnalysis").textContent =
+        data.last || "Henüz yok";
+    })
+    .catch((error) => {
+      console.error("Error loading stats:", error);
+    });
+</script>
+{% endblock %}

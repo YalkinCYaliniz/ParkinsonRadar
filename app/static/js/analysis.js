@@ -43,6 +43,7 @@ class AnalysisManager {
   }
 
   setResults(results) {
+    console.log("setResults called with:", results);
     this.currentResults = results;
     this.addExportButtons();
   }
@@ -427,6 +428,42 @@ Risk Seviyesi: ${prediction.risk_level}
     // This would require additional data about feature importance
   }
 
+  showNotification(message, type = "info") {
+    // Create notification element
+    const notification = document.createElement("div");
+    notification.className = `alert alert-${
+      type === "error" ? "danger" : type
+    } alert-dismissible fade show position-fixed`;
+    notification.style.cssText = `
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      min-width: 300px;
+      max-width: 500px;
+    `;
+
+    notification.innerHTML = `
+      <i class="fas fa-${
+        type === "success"
+          ? "check-circle"
+          : type === "error"
+          ? "exclamation-triangle"
+          : "info-circle"
+      } me-2"></i>
+      ${message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+
+    document.body.appendChild(notification);
+
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.remove();
+      }
+    }, 5000);
+  }
+
   createTrendAnalysis(historicalData) {
     // Could create trend analysis if historical data is available
     // For tracking changes over time
@@ -435,14 +472,27 @@ Risk Seviyesi: ${prediction.risk_level}
 
 // Initialize analysis manager
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("Initializing AnalysisManager");
   window.analysisManager = new AnalysisManager();
 
   // Make it available to audio recorder for setting results
-  if (window.audioRecorder) {
-    const originalDisplayResults = window.audioRecorder.displayResults;
-    window.audioRecorder.displayResults = function (result) {
-      originalDisplayResults.call(this, result);
-      window.analysisManager.setResults(result);
-    };
-  }
+  console.log("Checking for audioRecorder:", window.audioRecorder);
+
+  // Use a more robust approach to connect with audio recorder
+  const connectToAudioRecorder = () => {
+    if (window.audioRecorder && window.audioRecorder.displayResults) {
+      console.log("Connecting to audio recorder");
+      const originalDisplayResults = window.audioRecorder.displayResults;
+      window.audioRecorder.displayResults = function (result) {
+        console.log("Audio recorder displayResults called with:", result);
+        originalDisplayResults.call(this, result);
+        window.analysisManager.setResults(result);
+      };
+    } else {
+      console.log("Audio recorder not found, retrying in 1 second");
+      setTimeout(connectToAudioRecorder, 1000);
+    }
+  };
+
+  connectToAudioRecorder();
 });

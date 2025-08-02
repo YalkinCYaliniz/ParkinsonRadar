@@ -1,0 +1,400 @@
+{% extends "base.html" %} {% block title %}Analiz Geçmişi - Parkinson Ses
+Analizi{% endblock %} {% block content %}
+<div class="container mt-5 pt-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-lg">
+        <div class="card-header bg-warning text-dark">
+          <h3 class="mb-0">
+            <i class="fas fa-history me-2"></i>
+            Analiz Geçmişi
+          </h3>
+        </div>
+        <div class="card-body">
+          {% if history %}
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>Tarih</th>
+                  <th>Dosya Adı</th>
+                  <th>Sonuç</th>
+                  <th>Olasılık</th>
+                  <th>Risk Seviyesi</th>
+                  <th>İşlemler</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for record in history %}
+                <tr>
+                  <td>{{ record.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
+                  <td>
+                    <i class="fas fa-file-audio me-1"></i>
+                    {{ record.filename or 'Mikrofondan kayıt' }}
+                  </td>
+                  <td>
+                    {% set prediction = record.prediction_result %} {% if
+                    prediction %} {% set pred_value =
+                    prediction.get('consensus_prediction',
+                    prediction.get('prediction', None)) %} {% if pred_value == 1
+                    %}
+                    <span class="badge bg-danger">
+                      <i class="fas fa-exclamation-triangle me-1"></i>
+                      Parkinson Riski
+                    </span>
+                    {% elif pred_value == 0 %}
+                    <span class="badge bg-success">
+                      <i class="fas fa-check-circle me-1"></i>
+                      Normal
+                    </span>
+                    {% else %}
+                    <span class="badge bg-secondary">Bilinmiyor</span>
+                    {% endif %} {% else %}
+                    <span class="badge bg-secondary">Bilinmiyor</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if prediction %} {% set prob_value =
+                    prediction.get('consensus_probability',
+                    prediction.get('probability', None)) %} {% if prob_value is
+                    not none %}
+                    <div class="progress" style="height: 20px">
+                      {% set prob = (prob_value * 100) | round(1) %}
+                      <div
+                        class="progress-bar {% if prob > 50 %}bg-danger{% else %}bg-success{% endif %}"
+                        style="width: {{ prob }}%"
+                      >
+                        {{ prob }}%
+                      </div>
+                    </div>
+                    {% else %}
+                    <span class="text-muted">-</span>
+                    {% endif %} {% else %}
+                    <span class="text-muted">-</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if prediction %} {% set prob_value =
+                    prediction.get('consensus_probability',
+                    prediction.get('probability', None)) %} {% set risk_level =
+                    prediction.get('risk_level', None) %} {% if risk_level %} {%
+                    if risk_level.lower() == 'low' or risk_level.lower() ==
+                    'düşük' %}
+                    <span class="badge bg-success">Düşük</span>
+                    {% elif risk_level.lower() == 'medium' or risk_level.lower()
+                    == 'orta' %}
+                    <span class="badge bg-warning">Orta</span>
+                    {% elif risk_level.lower() == 'high' or risk_level.lower()
+                    == 'yüksek' %}
+                    <span class="badge bg-danger">Yüksek</span>
+                    {% else %}
+                    <span class="badge bg-info">{{ risk_level }}</span>
+                    {% endif %} {% elif prob_value is not none %} {% set prob =
+                    (prob_value * 100) | round(1) %} {% if prob < 30 %}
+                    <span class="badge bg-success">Düşük</span>
+                    {% elif prob < 70 %}
+                    <span class="badge bg-warning">Orta</span>
+                    {% else %}
+                    <span class="badge bg-danger">Yüksek</span>
+                    {% endif %} {% else %}
+                    <span class="badge bg-secondary">-</span>
+                    {% endif %} {% else %}
+                    <span class="badge bg-secondary">-</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-sm btn-outline-primary me-2"
+                      onclick="showDetails({{ loop.index0 }})"
+                      data-bs-toggle="modal"
+                      data-bs-target="#detailModal"
+                    >
+                      <i class="fas fa-eye me-1"></i>
+                      Detaylar
+                    </button>
+                    <button
+                      class="btn btn-sm btn-success"
+                      onclick="downloadHistoryReport({{ loop.index0 }})"
+                      title="Raporu PDF olarak indir"
+                    >
+                      <i class="fas fa-download me-1"></i>
+                      İndir
+                    </button>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+          <div class="text-center py-5">
+            <i class="fas fa-microphone-slash fa-4x text-muted mb-3"></i>
+            <h4 class="text-muted">Henüz analiz yapılmamış</h4>
+            <p class="text-muted">
+              İlk ses analizinizi yapmak için ana sayfaya gidin.
+            </p>
+            <a href="{{ url_for('index') }}" class="btn btn-primary">
+              <i class="fas fa-microphone me-2"></i>
+              Analiz Yap
+            </a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal fade" id="detailModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="fas fa-chart-line me-2"></i>
+          Analiz Detayları
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Details will be loaded here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Kapat
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_scripts %}
+<script>
+    const historyData = {{ history | tojson | safe }};
+
+       function showDetails(index) {
+         const record = historyData[index];
+         const prediction = record.prediction_result || {};
+         const features = record.features || {};
+
+         let modelsHtml = '<div class="row">';
+
+        // Individual model results
+        const models = ['random_forest', 'xgboost', 'lightgbm', 'neural_network', 'svm'];
+        const modelNames = {
+            'random_forest': 'Random Forest',
+            'xgboost': 'XGBoost',
+            'lightgbm': 'LightGBM',
+            'neural_network': 'Neural Network',
+            'svm': 'SVM'
+        };
+
+               models.forEach(model => {
+             if (prediction['individual_results'] && prediction['individual_results'][model]) {
+                 const result = prediction['individual_results'][model];
+                 const prob = (result['probability'] * 100).toFixed(1);
+
+                 modelsHtml += `
+                     <div class="col-md-6 mb-3">
+                         <div class="card">
+                             <div class="card-body">
+                                 <h6 class="card-title">${modelNames[model]}</h6>
+                                 <div class="progress mb-2" style="height: 20px;">
+                                     <div class="progress-bar ${prob > 50 ? 'bg-danger' : 'bg-success'}"
+                                          style="width: ${prob}%">
+                                         ${prob}%
+                                     </div>
+                                 </div>
+                                 <small class="text-muted">
+                                     Tahmin: ${result['prediction'] == 1 ? 'Parkinson Riski' : 'Normal'}
+                                 </small>
+                             </div>
+                         </div>
+                     </div>
+                 `;
+             }
+         });
+
+        modelsHtml += '</div>';
+
+        // Features summary
+        let featuresHtml = '<h6 class="mt-4">Ses Özellikleri (Seçilmiş)</h6><div class="row">';
+        const keyFeatures = ['MDVP:Fo(Hz)', 'MDVP:Jitter(%)', 'MDVP:Shimmer', 'NHR', 'HNR'];
+
+        keyFeatures.forEach(feature => {
+            if (features[feature] !== undefined) {
+                featuresHtml += `
+                    <div class="col-md-4 mb-2">
+                        <strong>${feature}:</strong><br>
+                        <span class="text-muted">${features[feature].toFixed(6)}</span>
+                    </div>
+                `;
+            }
+        });
+
+        featuresHtml += '</div>';
+
+               // Get prediction value (support both old and new formats)
+               const predValue = prediction['consensus_prediction'] || prediction['prediction'];
+               const probValue = prediction['consensus_probability'] || prediction['probability'];
+               const riskLevel = prediction['risk_level'];
+
+               const modalContent = `
+             <div class="analysis-summary">
+                 <div class="row mb-4">
+                     <div class="col-md-6">
+                         <h6>Genel Sonuç</h6>
+                         <div class="card ${predValue == 1 ? 'border-danger' : 'border-success'}">
+                             <div class="card-body text-center">
+                                 <i class="fas ${predValue == 1 ? 'fa-exclamation-triangle text-danger' : 'fa-check-circle text-success'} fa-2x mb-2"></i>
+                                 <h5>${predValue == 1 ? 'Parkinson Riski Tespit Edildi' : 'Normal Ses Profili'}</h5>
+                                 <p class="mb-0">Güven: ${probValue ? (probValue * 100).toFixed(1) : 'Bilinmiyor'}%</p>
+                                 ${riskLevel ? `<p class="mb-0">Risk Seviyesi: <span class="badge ${riskLevel.toLowerCase() === 'low' ? 'bg-success' : riskLevel.toLowerCase() === 'medium' ? 'bg-warning' : 'bg-danger'}">${riskLevel}</span></p>` : ''}
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-md-6">
+                         <h6>Analiz Tarihi</h6>
+                         <p><i class="fas fa-calendar me-2"></i>${new Date(record.created_at).toLocaleString('tr-TR')}</p>
+                         <h6>Dosya</h6>
+                         <p><i class="fas fa-file-audio me-2"></i>${record.filename || 'Mikrofondan kayıt'}</p>
+                     </div>
+                 </div>
+
+                 <h6>Bireysel Model Sonuçları</h6>
+                 ${modelsHtml}
+
+                 ${featuresHtml}
+             </div>
+         `;
+
+        document.getElementById('modalBody').innerHTML = modalContent;
+    }
+
+    function downloadHistoryReport(index) {
+        const record = historyData[index];
+        if (!record) {
+            alert('Kayıt bulunamadı!');
+            return;
+        }
+
+        // Create analysis data object in the same format as current analysis
+        const analysisData = {
+            prediction: record.prediction_result || {},
+            features: record.features || {},
+            filename: record.filename,
+            timestamp: record.created_at
+        };
+
+        // Use the existing analysis manager's download functionality
+        if (window.analysisManager) {
+            // Set the results temporarily for download
+            const originalResults = window.analysisManager.currentResults;
+            window.analysisManager.currentResults = analysisData;
+
+            // Trigger download
+            window.analysisManager.downloadReport();
+
+            // Restore original results
+            window.analysisManager.currentResults = originalResults;
+        } else {
+            // Fallback: direct download approach
+            downloadReportDirect(analysisData);
+        }
+    }
+
+      function downloadReportDirect(analysisData) {
+      // PDF direct download
+      const prediction = analysisData.prediction || {};
+      const features = analysisData.features || {};
+
+      const predValue = prediction.consensus_prediction || prediction.prediction;
+      const probValue = prediction.consensus_probability || prediction.probability;
+      const riskLevel = prediction.risk_level || 'Bilinmiyor';
+      const filename = analysisData.filename || 'Mikrofondan kayıt';
+      const timestamp = analysisData.timestamp || new Date().toISOString();
+
+      const resultText = predValue == 1 ? 'Parkinson Riski Tespit Edildi' : 'Normal Ses Profili';
+      const confidence = probValue ? (probValue * 100).toFixed(1) : 'Bilinmiyor';
+      const isParkinson = predValue == 1;
+      const probability = confidence;
+      const reportDate = new Date(timestamp).toLocaleString('tr-TR');
+
+      // Create PDF using jsPDF
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // Set font
+      doc.setFont("helvetica");
+
+      // Header
+      doc.setFontSize(18);
+      doc.setTextColor(0, 123, 255); // Blue
+      doc.text('Parkinson Hastalığı Ses Analizi Raporu', 20, 30);
+
+      // Date
+      doc.setFontSize(12);
+      doc.setTextColor(0, 0, 0); // Black
+      doc.text(`Tarih: ${reportDate}`, 20, 45);
+      doc.text(`Dosya: ${filename}`, 20, 55);
+
+      // Line separator
+      doc.setDrawColor(0, 123, 255);
+      doc.line(20, 65, 190, 65);
+
+      // Results section
+      doc.setFontSize(16);
+      doc.text('Analiz Sonucu', 20, 80);
+
+      doc.setFontSize(12);
+      doc.setTextColor(isParkinson ? 220 : 40, isParkinson ? 53 : 167, isParkinson ? 69 : 69);
+      doc.text(`Durum: ${resultText}`, 20, 95);
+
+      doc.setTextColor(0, 0, 0);
+      doc.text(`Güven Oranı: ${confidence}%`, 20, 105);
+      doc.text(`Risk Seviyesi: ${riskLevel}`, 20, 115);
+
+      // Features section
+      doc.setFontSize(16);
+      doc.text('Ses Özellikleri', 20, 135);
+
+      doc.setFontSize(10);
+      let yPos = 150;
+      const keyFeatures = ['MDVP:Fo(Hz)', 'MDVP:Jitter(%)', 'MDVP:Shimmer', 'NHR', 'HNR', 'RPDE', 'DFA', 'PPE'];
+
+      keyFeatures.forEach(feature => {
+          if (features[feature] !== undefined) {
+              const value = typeof features[feature] === 'number' ? features[feature].toFixed(6) : features[feature];
+              doc.text(`${feature}: ${value}`, 20, yPos);
+              yPos += 10;
+          }
+      });
+
+      // Warning section
+      yPos += 10;
+      doc.setFillColor(255, 243, 205); // Light yellow background
+      doc.rect(20, yPos, 170, 30, 'F');
+
+      doc.setFontSize(14);
+      doc.setTextColor(133, 100, 4); // Dark yellow
+      doc.text('⚠ Önemli Uyarı', 25, yPos + 10);
+
+      doc.setFontSize(10);
+      doc.text('Bu analiz tıbbi tanı değildir ve kesinlikle bir doktora danışılmalıdır.', 25, yPos + 20);
+      doc.text('Sonuçlar sadece araştırma amaçlıdır.', 25, yPos + 28);
+
+      // Footer
+      yPos += 45;
+      doc.setTextColor(108, 117, 125); // Gray
+      doc.setFontSize(8);
+      doc.text('Bu rapor Parkinson Ses Analizi sistemi tarafından otomatik olarak oluşturulmuştur.', 20, yPos);
+
+      // Download
+      const pdfDate = new Date(timestamp).toISOString().split('T')[0];
+      doc.save(`parkinson_raporu_${pdfDate}.pdf`);
+  }
+</script>
+{% endblock %}
