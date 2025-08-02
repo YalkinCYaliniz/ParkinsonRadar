@@ -98,6 +98,8 @@ Kullanıcılar sisteme konuşma seslerini yükler; sistem, bu sesleri analiz ede
 
 - **Sprint Notları :** Veritabanının kurulması, kullanıcı kayıt/giriş sistemi, kullanıcı profil yönetimi ve geçmiş raporların görüntülenmesi gibi temel işlevler başarıyla hayata geçirilmiştir. Ayrıca, UI/UX iyileştirmeleri yapılmış, export seçenekleri geliştirilmiş ve adaptif düzeltme ile çevresel farkındalık özelliği de sisteme entegre edilmiştir. Tüm geliştirmeler zamanında tamamlanmış ve ilgili test süreçlerinden başarıyla geçmiştir.
 - **Tahmin Edilen/Tamamlanacak Puan :** Sprint 3 için tahmin edilen ve hedeflenen puan 44'tür. Belirlenen tasklar tamamlanmış ve 44 puanlık iş yapılmıştır.
+<img width="2304" height="864" alt="image" src="https://github.com/user-attachments/assets/e7550272-90fc-4b66-80a0-23b228af9fe8" />
+
 - **Tahmin Mantığı :** Proje başında tamamlanması belirlenen tasklar tamamlanarak belirlenen 44 puan tamamlanmıştır. Sprint 3 için tahmin edilen ve hedeflenen puan 53'tür. Belirlenen tasklar tamamlanmış ve 44 puanlık iş yapılmıştır. 
 - **Daily Scrum :**
 <img width="2308" height="1028" alt="image" src="https://github.com/user-attachments/assets/f8286c43-18bf-4b5b-8325-c9185528b999" />
@@ -110,7 +112,7 @@ Kullanıcılar sisteme konuşma seslerini yükler; sistem, bu sesleri analiz ede
 <img width="1039" height="977" alt="image" src="https://github.com/user-attachments/assets/52301481-86b9-47e9-b0d0-b78a1875e093" />
 <img width="1280" height="610" alt="image" src="https://github.com/user-attachments/assets/14b62d7f-4226-4e0c-9868-b8a67970013d" />
 
-- **Sprint Review :**
+- **Sprint Review :** Sprint 3 kapsamında, veritabanının kurulması, kullanıcı kayıt/giriş sistemi, kullanıcı profil yönetimi ve geçmiş raporların görüntülenmesi gibi temel işlevlerin geliştirilmesiyle projenin altyapısında önemli ilerleme kaydedildi. Ayrıca, kullanıcı deneyimini artırmaya yönelik UI/UX iyileştirmeleri yapıldı, eExport seçeneklerinin geliştirilmesiyle birlikte kullanıcıların veriye farklı formatlarda ulaşabilmesi sağlandı.  Çevresel farkındalık ile adaptif düzeltme mekanizmaları başarıyla sisteme entegre edildi. Tüm bu geliştirmeler planlanan süre içerisinde tamamlanarak test süreçlerinden sorunsuz bir şekilde geçti ve sistemin kararlılığı başarıyla sağlandı.
 
 - **Sprint Retrospective :** Sprint süresince ekip olarak düzenli toplantılar gerçekleştirdik ve iletişimi güçlü tutmaya özen gösterdik. Görev dağılımında adil ve verimli bir yaklaşım benimsedik, her ekip üyesi sorumluluğunu zamanında yerine getirdi. İş birliği ve karşılıklı destek sayesinde sprint hedeflerimizi başarıyla tamamladık.
 
