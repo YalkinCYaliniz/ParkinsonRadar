@@ -94,6 +94,24 @@ Kullanıcılar sisteme konuşma seslerini yükler; sistem, bu sesleri analiz ede
 - **Sprint Review** : Sprint 2'de veri seti optimizasyonu, ensemble model kurulumu ve Flask tabanlı web uygulaması geliştirme ile önemli ilerleme kaydettik.Ancak bu sprint'te karşılaştığımız temel zorluklardan biri, veri setinin kaydedildiği profesyonel stüdyo mikrofonları ile bizim kullandığımız tüketici mikrofonları arasındaki uyumsuzluktan kaynaklanan çevresel faktörler ve ses kalitesi farklılıklarıydı. Özellikle jitter gibi ses özelliklerinde ciddi sapmalar yaşadık. Bu sorunu, çok katmanlı normalizasyon stratejisi (istatistiksel aykırı değer tespiti, fizyolojik aralık sınırlaması, ultra-katı doğrulama ve adaptif düzeltme faktörleri) uygulayarak başarılı bir şekilde giderdik. Bu sayede, farklı kayıt ortamlarından gelen verileri başarılı bir şekilde standardize edebildik.
 - **Sprint Retrospective :** Bu sprintte ekip içi iletişimi güçlendirmek adına daha sık ve verimli toplantılar gerçekleştirdik. Görev dağılımlarını daha net yaparak sorumlulukların takibini kolaylaştırdık. Ayrıca, ekip üyeleri arasında daha açık ve destekleyici bir iletişim ortamı oluşturmayı başardık.
 
+## SPRINT 3
 
+- **Sprint Notları :** Veritabanının kurulması, kullanıcı kayıt/giriş sistemi, kullanıcı profil yönetimi ve geçmiş raporların görüntülenmesi gibi temel işlevler başarıyla hayata geçirilmiştir. Ayrıca, UI/UX iyileştirmeleri yapılmış, export seçenekleri geliştirilmiş ve adaptif düzeltme ile çevresel farkındalık özelliği de sisteme entegre edilmiştir. Tüm geliştirmeler zamanında tamamlanmış ve ilgili test süreçlerinden başarıyla geçmiştir.
+- **Tahmin Edilen/Tamamlanacak Puan :** Sprint 3 için tahmin edilen ve hedeflenen puan 44'tür. Belirlenen tasklar tamamlanmış ve 44 puanlık iş yapılmıştır.
+- **Tahmin Mantığı :** Proje başında tamamlanması belirlenen tasklar tamamlanarak belirlenen 44 puan tamamlanmıştır. Sprint 3 için tahmin edilen ve hedeflenen puan 53'tür. Belirlenen tasklar tamamlanmış ve 44 puanlık iş yapılmıştır. 
+- **Daily Scrum :**
+<img width="2308" height="1028" alt="image" src="https://github.com/user-attachments/assets/f8286c43-18bf-4b5b-8325-c9185528b999" />
+
+- **Sprint Board Updates :**
+<img width="1272" height="1674" alt="image" src="https://github.com/user-attachments/assets/a89d8acf-06aa-4a09-ba00-0601b1b0bacf" />
+
+- **Screenshots :**
+<img width="1216" height="830" alt="image" src="https://github.com/user-attachments/assets/2d68b74e-826b-4e67-9efd-3a09400302f9" />
+<img width="1039" height="977" alt="image" src="https://github.com/user-attachments/assets/52301481-86b9-47e9-b0d0-b78a1875e093" />
+<img width="1280" height="610" alt="image" src="https://github.com/user-attachments/assets/14b62d7f-4226-4e0c-9868-b8a67970013d" />
+
+- **Sprint Review :**
+
+- **Sprint Retrospective :** Sprint süresince ekip olarak düzenli toplantılar gerçekleştirdik ve iletişimi güçlü tutmaya özen gösterdik. Görev dağılımında adil ve verimli bir yaklaşım benimsedik, her ekip üyesi sorumluluğunu zamanında yerine getirdi. İş birliği ve karşılıklı destek sayesinde sprint hedeflerimizi başarıyla tamamladık.
 
   
