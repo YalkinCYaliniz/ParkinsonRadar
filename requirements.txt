@@ -4,7 +4,7 @@ numpy>=1.21.0
 scikit-learn>=1.1.0
 xgboost>=1.6.0
 lightgbm>=3.3.0
-tensorflow>=2.10.0
+tensorflow-cpu==2.9.3    
 librosa>=0.9.0
 praat-parselmouth>=0.4.0
 matplotlib>=3.5.0
@@ -18,4 +18,4 @@ flask-bcrypt>=1.0.0
 psycopg2-binary>=2.9.0
 flask-wtf>=1.1.0
 wtforms>=3.0.0
-flask-mail>=0.9.1 
+flask-mail>=0.9.1
